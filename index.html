@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMBEDDED C CODING STANDARDS</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .content {
+            margin: 20px 0;
+            padding: 15px;
+            background: #e7f3fe;
+            border-left: 4px solid #2196F3;
+            cursor: pointer;
+            color: #2196F3;
+            text-decoration: none;
+            display: block;
+            border-radius: 5px;
+        }
+        .content:hover {
+            background: #d0e7fd;
+        }
+        .explanation {
+            margin-top: 50px;
+            padding: 15px;
+            background: #fff;
+            border-left: 4px solid #4CAF50;
+            border-radius: 5px;
+        }
+        .explanation h2 {
+            color: #4CAF50;
+        }
+        .explanation p {
+            color: #666;
+        }
+    </style>
+</head> 
+      <link rel="stylesheet" href="style2.css">
+
+<body>
+    <header>
+        <h2 class="logo">STUFFBITS</h2>
+        <ul>
+            <li class="list__items"><a href="">Home</a></li>
+            <li class="list__items"><a href="">About</a></li>
+            <li class="list__items"><a href="">Contact Us</a></li>
+            <li class="list__items"><a href="">our Team</a></li>
+        </ul>
+    </header>
+<div class="container">
+    <h1>EMBEDDED C CODING STANDARDS</h1>
+
+    <a class="content" onclick="document.getElementById('explanation1').scrollIntoView({ behavior: 'smooth' });">
+        Embedded C Coding Standards
+    </a>
+    <a class="content" onclick="document.getElementById('explanation2').scrollIntoView({ behavior: 'smooth' });">
+        Principles
+    </a>
+    <a class="content" onclick="document.getElementById('explanation3').scrollIntoView({ behavior: 'smooth' });">
+        Best Practices
+    </a>
+    <a class="content" onclick="document.getElementById('explanation4').scrollIntoView({ behavior: 'smooth' });">
+        Data Structure Guidelines
+    </a>
+    <a class="content" onclick="document.getElementById('explanation5').scrollIntoView({ behavior: 'smooth' });">
+        Software Layering
+    </a>
+    <a class="content" onclick="document.getElementById('explanation6').scrollIntoView({ behavior: 'smooth' });">
+        Naming Convention
+    </a>
+    <a class="content" onclick="document.getElementById('explanation7').scrollIntoView({ behavior: 'smooth' });">
+        Other Guidelines
+    </a>
+    <a class="content" onclick="document.getElementById('explanation8').scrollIntoView({ behavior: 'smooth' });">
+        Code Templates
+    </a>
+
+
+    <div class="explanation" id="explanation1">
+        <h2>Embedded C Coding Standards</h2>
+        <p>Coding standards help keep the code clean, and consistent. The guidelines below also explain and cite the reasons why we should follow them, and certain ones will have references to ISO26262, which is a safety certification guideline for code. <br>
+            <br>
+            ## Goals. <br>
+            <br>
+            1. Consistency. <br>
+            <br>
+            2. Promote Best Practices. <br>
+            <br>
+            3. Provide Structure to the code. <br>
+            <br>
+            4. Avoid bugs and increase developer efficiency. <br>
+            <br>
+            5. Optimize for code reviewers and readers rather than code developers. <br>
+            <br>
+            ## Non-Goals. <br>
+            <br>
+            1. Nitpick on the developer code. <br>
+            <br>
+            2. Argue whitespace issues (clang-format auto formats brace positions and spaces). <br>
+            <br>
+            Any code you write, modify or generate should follow the coding standards. If you find any code that doesn't follow these rules, please take the initiative to fix it. <br>
+            <br>
+            ## Follow the Boy Scout Rule. <br>
+            <br>
+
+            Leave the campground cleaner than you found it.</p>
+    </div>
+
+    <div class="explanation" id="explanation2">
+        <h2>Principles</h2>
+        <p>Principles are guiding rules to be more successful. You need to constantly keep these in mind and have them serve as a guardrail to keep you focused towards writing good, and clean software. <br>
+            <br>
+            You should not learn of the following principles once and then forget them. A principle is a kind of rule, belief, or idea that guides you. <br>
+            <br>
+            [Clean C++] <br> 
+             <br>
+             ## KISS <br>
+             <br>
+             <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Principles Example</title>
+                <style>
+                    .content-block {
+                        margin: 20px;
+                        padding: 20px;
+                        border: 1px solid #ccc;
+                        background-color: #f9f9f9;
+                        border-radius: 8px;
+                    }
+                    .content-block p {
+                        margin: 10px 0;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="content-block">
+                    <p>Keep It Simple and Stupid and less obscure. Keep the logic as simple as possible, and oftentimes as un-optimized as possible. Aim for code readability over creating fancy logic. <br>
+                        <br>
+                        ## Very cool macro but could be deadly: <br>
+                        <br>                    
+                        *  for (int i = ISR_disable() | 1; i != 0; i=ISR_enable() & 0) <br>
+
+                        * #define CRITICAL_SECTION() \ <br>
+                        } <br>
+                        * CRITICAL_SECTION() { <br>
+                        *  ++x; <br>
+                        <br>
+                        Violation of the KISS principle in an effort to "optimize": <br>
+                        <br>
+                        * uint8_t array[64]; <br>
+                        // Do not do this 
+                        * for (uint32_t i = 0; i < 64/8; i++) { <br>
+                        *  *(uint64_t*)&array[i] = 0; <br>
+                        * } <br>
+                        // Apply the KISS principle 
+                        * uint8_t array[64] = { 0 }; <br>
+                        <br>
+                        Aim for extreme simplicity and write minimal amount of code. And remember my wise words: <br>
+                        
+                        It is not about how many lines of code you write, it is about how few. <br>
+                        
+                        -- Lockheed Martin (Preet)</p>
+                </div>
+            </body>
+            </p>
+    </div>
+
+    <div class="explanation" id="explanation3">
+        <h2>Best Practices</h2>
+        <p>Here are some general Sibros guidelines for being a good, responsible engineer. <br>
+
+            Write code for someone else to take over  <br>
+   
+            Strong developers never need to worry about job security <br>
+            
+            Pass it on such that you can go do even more exciting work <br>
+            
+            Knowledge is not worth anything until transferred <br>
+            
+            Take your time, and do things right <br>
+            
+            Write code as if you are writing safety critical code for a pacemaker or an airplane flight controller <br>
+            
+            This includes unit-test code; write maintainable unit test code <br>
+            
+            Apply proper code fixes rather than patches<br>
+            
+            Any workarounds are going to come back to haunt you<br>
+            
+            Be thorough, and understand your code fixes<br>
+            
+            Get to the root cause<br>
+            
+            There is no such thing as magic<br>
+            
+            Have a firm definition of it works<br>
+            
+            Can you bet your life on it?<br>
+            
+            Will it work 100% of the time?<br>
+            
+            Write high quality, deterministic code<br>
+            
+            Design code such that you will never need to hit the reset button for 1 year, 10 years, and beyond<br>
+            
+            One Sibros team member's previous colleagues once said Oh we hit this bug every 24 hours, let's reset our controller every 23 hours<br>
+            
+            They never worked with that person again, and another team member gets angry if they ever mention his name<br>
+            
+            Memory allocation should never fail<br>
+            
+            Design code such that even if someone attacks your controller through a CAN bus, or Ethernet network, your code will always result in predictable execution<br>
+            
+            Work with integrity and honesty<br>
+            
+            Treat your co-workers and stakeholders with respect, even when in disagreement<br>
+            
+            Communicate concisely and ensure criticism and comments are constructive<br>
+            
+            Don't be afraid to give honest feedback, and continue to iterate and improve on your work<br>
+            
+            Start with establishing a good base for your header file before writing your code<br>
+            
+            All parties can work together to come up with a solution before implementing any code; more ideas are always better!<br>
+            
+            Reviewing the header file first clarifies any issues with ticket requirements or misunderstandings<br>
+            
+            This also prevents wasted time developing code, tests and debugging said code that may end up being deleted<br></p>
+    </div>
+    <div class="explanation" id="explanation4">
+        <h2>Data Structure Guidelines</h2>
+        <p>When defining arrays, the use of hardcoded values and macros for array sizes must be avoided. Instead, the memory should be wrapped in a struct. <br>
+          <br>
+            Do not: <br>
+            // Avoid 
+            uint8_t packet[32U];  <br>
+            // Avoid
+            #define ARRAY_SIZE (32U) <br>
+            uint8_t packet[ARRAY_SIZE]<br></p>
+    </div>
+
+    <div class="explanation" id="explanation5">
+        <h2>Software Layering</h2>
+        <p>Whitespace & Code Format <br>
+            Newer languages like Golang have whitespace rules, such as the brace positions built into the language. We chose to implement same idea by using clang-format, which auto formats the source code according to pre-set rules such that we focus our code reviews on the actual matter, and not the code format. <br>
+            <br>
+            
+            Sibros has clang-format set up to auto-format your code during git commit. Google C++ code whitespace formatting rules are used to format code during a post-commit hook. The only exception to the Google rules is that we use 120 character limit for lines instead of 80 characters.</p>
+    </div>
+
+    <div class="explanation" id="explanation6">
+        <h2>Naming Convention</h2>
+        <p>General Rules
+            Snake Case <br>
+            
+            After some research, we decided to go with snake_case or the underscore convention, primarily due to the following reasons: <br>
+            
+            Snake case does not suffer from: <br>
+            
+            Differentiating Abbreviations tcpIpOpen<br>
+            
+            I hate Camel Case<br>
+            
+            Naming convention inside code can match the file names<br>
+            
+            Use myCodeModule.c creates issues with diverse build systems (Windows vs. Linux)<br>
+            
+            Therefore, use snake_case with no capital letters for all code, file and folder names<br>
+            
+            Do not use camelCase<br>
+            
+            Do not use PascalCase<br>
+            
+            Do not use Hungarian notation (like pMyString for pointers, 'bSwitch' for booleans)<br>
+            
+            Do not mix dashes with underscores. e.g. pre_integration_plan is OK; pre-integration_plan is not OK.<br>
+            
+            </p>
+    </div>
+    <div class="explanation" id="explanation7">
+        <h2>Other Guidelines</h2>
+        <p>String Literals in Print Statements <br> <br>
+            When using printf(const char *format, ...) or its variants, string literals should be used for the format parameter as opposed to a char * variable. The reason is because the compile can check the string literal’s % symbols, and match them against the number of arguments passed into printf() variants. The consequence of not matching the parameters with % symbols is stack corruption, hence, the compiler checks are vital for this use-case.</p>
+    </div>
+
+    <div class="explanation" id="explanation8">
+        <h2>Code Templates</h2>
+        <p>The empty lines between includes, and their order is very important. The clang-format will re-order #includes if they are not ordered correctly. <br>
+        <br>
+            The templates follow the Order of Includes and we do not duplicate the reasons here. <br>
+            <br>
+            We use these templates with the d3vnu1l.template-generator-vscode plugin for VSCode, hence the macros enclosed within {...} seen below. <br> </p>
+    </div>
+</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+<body>
+    <footer>
+    <div class="footerContainer">
+        <div class="socialIcons">
+            <a href=""><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+            <a href=""><i class="fa-brands fa-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-google-plus"></i></a>
+            <a href=""><i class="fa-brands fa-youtube"></i></a>
+        </div>
+        <div class="footerNav">
+            <ul><li><a href="">Home</a></li>
+                <li><a href="">News</a></li>
+                <li><a href="">About</a></li>
+                <li><a href="">Contact Us</a></li>
+                <li><a href="">our Team</a></li>
+            </ul>
+        </div>
+        
+    </div>
+    <div class="footerBottom">
+        <p>Copyright &copy;2023; Designed by <span class="designer">SUHAIL</span></p>
+    </div>
+</footer>
+</body>
+</body>
+</html>
+
+
